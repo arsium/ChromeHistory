@@ -6,7 +6,8 @@ How to use it ?
 
 VBNET : 
 
-For Each h In History.History_Log.Accounts()
+```Visual Basic .NET
+      For Each h In History.History_Log.Accounts()
             RichTextBox1.AppendText(h.Title & "  " & h.visit_count & "  " & h.last_visit_Time & "   " & h.URL & vbNewLine & vbNewLine)
-Next
-
+      Next
+```
