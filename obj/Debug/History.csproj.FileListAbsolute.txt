@@ -1,0 +1,6 @@
+C:\Users\mehdi\Desktop\FireFox-Thief-master\History\bin\Debug\History.dll
+C:\Users\mehdi\Desktop\FireFox-Thief-master\History\bin\Debug\History.pdb
+C:\Users\mehdi\Desktop\FireFox-Thief-master\History\obj\Debug\History.csprojAssemblyReference.cache
+C:\Users\mehdi\Desktop\FireFox-Thief-master\History\obj\Debug\History.csproj.CoreCompileInputs.cache
+C:\Users\mehdi\Desktop\FireFox-Thief-master\History\obj\Debug\History.dll
+C:\Users\mehdi\Desktop\FireFox-Thief-master\History\obj\Debug\History.pdb
