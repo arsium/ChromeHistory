@@ -78,17 +78,28 @@ namespace History
 
     }
 
+    public class keyword_search_terms
+    {
+
+        //     //keyword_id,"url_id","term","normalized_term"
+        public string keyword_id { get; set; }
+        public string url_id { get; set; }
+        public string term { get; set; }
+        public string normalized_term { get; set; }
+
+    }
+
 
 
 
 
     public class History_Log
     {
-        public static string LocalApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        public static string ApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        public static string defaultPath = LocalApplicationData + @"\Google\Chrome\User Data" + @"\Default\History";
+        private static string LocalApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        private static string ApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        private static string defaultPath = LocalApplicationData + @"\Google\Chrome\User Data" + @"\Default\History";
 
-        public static DateTime GetDateFromWebkitTime(string s)
+        private static DateTime GetDateFromWebkitTime(string s)
         {
             // Ref: http://linuxsleuthing.blogspot.co.uk/2011/06/decoding-google-chrome-timestamps-in.html
             // https://social.msdn.microsoft.com/Forums/vstudio/en-US/6bb627dc-83d6-4272-933f-329fb63d295a/parsing-dates-and-times?forum=vbgeneral
@@ -249,7 +260,7 @@ namespace History
         }
 
 
-        public static List<History> History_Recovery(string path, string browser, string table = "urls")
+        private static List<History> History_Recovery(string path, string browser, string table = "urls")
         {
 
             //Get all created profiles from browser path
@@ -446,7 +457,7 @@ namespace History
 
             return list;
         }
-        public static List<Download_History> Downloads_Recovery(string path, string browser, string table = "downloads")
+        private static List<Download_History> Downloads_Recovery(string path, string browser, string table = "downloads")
         {
 
             //Get all created profiles from browser path
@@ -542,13 +553,16 @@ namespace History
                         //
                         //
                         if (!string.IsNullOrEmpty(guid) && !string.IsNullOrEmpty(ID) && !string.IsNullOrEmpty(start_time))
-                            data.Add(new Download_History() { browser = browser, id = ID, guid = guid, current_path = current_path,
-                                target_path = target_path, 
+                            data.Add(new Download_History() { browser = browser, 
+                                id = ID, 
+                                guid = guid, 
+                                current_path = System.Text.Encoding.UTF8.GetString(System.Text.Encoding.Default.GetBytes(current_path)),
+                                target_path = System.Text.Encoding.UTF8.GetString(System.Text.Encoding.Default.GetBytes(target_path)), 
                                 start_time = start_time,
                                 received_bytes = received_bytes  ,
                                 total_bytes = total_bytes ,
                                 end_time = end_time,
-                                site_url = site_url,
+                                site_url = System.Text.Encoding.UTF8.GetString(System.Text.Encoding.Default.GetBytes(site_url)),
                                 tab_referrer_url = tab_referrer_url,
                                 tab_url = tab_url ,
                                 by_ext_name = by_ext_name,
@@ -564,5 +578,208 @@ namespace History
 
             return data;
         }
+
+
+
+
+
+
+
+     
+
+
+        public static List<keyword_search_terms> SearchTerms_Grab()
+        {
+            Dictionary<string, string> ChromiumPaths = new Dictionary<string, string>()
+            {
+                {
+                    "Chrome",
+                    LocalApplicationData + @"\Google\Chrome\User Data"
+                },
+                {
+                    "Opera",
+                    Path.Combine(ApplicationData, @"Opera Software\Opera Stable")
+                },
+                {
+                    "Yandex",
+                    Path.Combine(LocalApplicationData, @"Yandex\YandexBrowser\User Data")
+                },
+                {
+                    "360 Browser",
+                    LocalApplicationData + @"\360Chrome\Chrome\User Data"
+                },
+                {
+                    "Comodo Dragon",
+                    Path.Combine(LocalApplicationData, @"Comodo\Dragon\User Data")
+                },
+                {
+                    "CoolNovo",
+                    Path.Combine(LocalApplicationData, @"MapleStudio\ChromePlus\User Data")
+                },
+                {
+                    "SRWare Iron",
+                    Path.Combine(LocalApplicationData, @"Chromium\User Data")
+                },
+                {
+                    "Torch Browser",
+                    Path.Combine(LocalApplicationData, @"Torch\User Data")
+                },
+                {
+                    "Brave Browser",
+                    Path.Combine(LocalApplicationData, @"BraveSoftware\Brave-Browser\User Data")
+                },
+                {
+                    "Iridium Browser",
+                    LocalApplicationData + @"\Iridium\User Data"
+                },
+                {
+                    "7Star",
+                    Path.Combine(LocalApplicationData, @"7Star\7Star\User Data")
+                },
+                {
+                    "Amigo",
+                    Path.Combine(LocalApplicationData, @"Amigo\User Data")
+                },
+                {
+                    "CentBrowser",
+                    Path.Combine(LocalApplicationData, @"CentBrowser\User Data")
+                },
+                {
+                    "Chedot",
+                    Path.Combine(LocalApplicationData, @"Chedot\User Data")
+                },
+                {
+                    "CocCoc",
+                    Path.Combine(LocalApplicationData, @"CocCoc\Browser\User Data")
+                },
+                {
+                    "Elements Browser",
+                    Path.Combine(LocalApplicationData, @"Elements Browser\User Data")
+                },
+                {
+                    "Epic Privacy Browser",
+                    Path.Combine(LocalApplicationData, @"Epic Privacy Browser\User Data")
+                },
+                {
+                    "Kometa",
+                    Path.Combine(LocalApplicationData, @"Kometa\User Data")
+                },
+                {
+                    "Orbitum",
+                    Path.Combine(LocalApplicationData, @"Orbitum\User Data")
+                },
+                {
+                    "Sputnik",
+                    Path.Combine(LocalApplicationData, @"Sputnik\Sputnik\User Data")
+                },
+                {
+                    "uCozMedia",
+                    Path.Combine(LocalApplicationData, @"uCozMedia\Uran\User Data")
+                },
+                {
+                    "Vivaldi",
+                    Path.Combine(LocalApplicationData, @"Vivaldi\User Data")
+                },
+                {
+                    "Sleipnir 6",
+                    Path.Combine(ApplicationData, @"Fenrir Inc\Sleipnir5\setting\modules\ChromiumViewer")
+                },
+                {
+                    "Citrio",
+                    Path.Combine(LocalApplicationData, @"CatalinaGroup\Citrio\User Data")
+                },
+                {
+                    "Coowon",
+                    Path.Combine(LocalApplicationData, @"Coowon\Coowon\User Data")
+                },
+                {
+                    "Liebao Browser",
+                    Path.Combine(LocalApplicationData, @"liebao\User Data")
+                },
+                {
+                    "QIP Surf",
+                    Path.Combine(LocalApplicationData, @"QIP Surf\User Data")
+                },
+                {
+                    "Edge Chromium",
+                    Path.Combine(LocalApplicationData, @"Microsoft\Edge\User Data")
+                }
+            };
+
+            var list = new List<keyword_search_terms>();
+
+            foreach (var item in ChromiumPaths)
+                list.AddRange(keywordSearchTermsHistory(item.Value, item.Key));
+
+            return list;
+        }
+
+
+        private static List<keyword_search_terms> keywordSearchTermsHistory(string path, string browser, string table = "keyword_search_terms")
+        {
+
+            //Get all created profiles from browser path
+            //  List<string> loginDataFiles =new List<string>();
+            // loginDataFiles.Add(defaultPath);
+
+            List<string> loginDataFiles = GetAllProfiles(path);
+            List<keyword_search_terms> data = new List<keyword_search_terms>();
+
+            foreach (string loginFile in loginDataFiles.ToArray())
+            {
+                if (!File.Exists(loginFile))
+                    continue;
+
+                SQLiteHandler SQLDatabase;
+
+                try
+                {
+                    SQLDatabase = new SQLiteHandler(loginFile); //Open database with Sqlite
+                }
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    continue;
+                }
+
+                if (!SQLDatabase.ReadTable(table))
+                    continue;
+
+                for (int I = 0; I <= SQLDatabase.GetRowCount() - 1; I++)
+                {
+                    try
+                    {
+                        //Get values with row number and column name
+                        string keyword_id = SQLDatabase.GetValue(I, "keyword_id");
+                        string url_id = SQLDatabase.GetValue(I, "url_id");
+                        string term = SQLDatabase.GetValue(I, "term");
+                        string normalized_term = SQLDatabase.GetValue(I, "normalized_term");
+                
+                        //keyword_id,"url_id","term","normalized_term"
+                        //
+                        if (!string.IsNullOrEmpty(keyword_id) && !string.IsNullOrEmpty(url_id) && !string.IsNullOrEmpty(term))
+                            data.Add(new keyword_search_terms() { keyword_id = keyword_id, 
+
+                                url_id = System.Text.Encoding.UTF8.GetString(System.Text.Encoding.Default.GetBytes(url_id)),
+
+                                term = System.Text.Encoding.UTF8.GetString(System.Text.Encoding.Default.GetBytes(term)),
+
+                                normalized_term = System.Text.Encoding.UTF8.GetString(System.Text.Encoding.Default.GetBytes(normalized_term))
+
+                            }); ;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
+                }
+            }
+
+            return data;
+        }
+
+
+
+
     }
 }
