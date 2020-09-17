@@ -2,6 +2,8 @@
 This library can get many information about chrome history !
 This dll is my own researches about getting chrome history logs , you can add by yourself others chromium-based web browsers !
 
+Current Features : Grab History , Grab Downloaded Files History , Grab Keywords Searched History
+
 How to use it ?
 
 VBNET : 
