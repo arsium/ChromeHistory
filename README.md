@@ -1,10 +1,10 @@
 # ChromeHistory
 I would like to thank https://github.com/0xfd3/Chrome-Password-Recovery and QuasarRat (https://github.com/quasar/Quasar) for this powerful SQLite Class !
-<br/>
+<br/><br/>
 This library can get many information about chrome history !
-<br/>
+<br/><br/>
 This dll is my own researches about getting chrome history logs , you can add by yourself others chromium-based web browsers !
-<br/>
+<br/><br/>
 Current Features : Grab History , Grab Downloaded Files History , Grab Keywords Searched History
 
 How to use it ?
