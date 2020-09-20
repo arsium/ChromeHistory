@@ -4,3 +4,9 @@ C:\Users\mehdi\Desktop\FireFox-Thief-master\History\obj\Debug\History.csprojAsse
 C:\Users\mehdi\Desktop\FireFox-Thief-master\History\obj\Debug\History.csproj.CoreCompileInputs.cache
 C:\Users\mehdi\Desktop\FireFox-Thief-master\History\obj\Debug\History.dll
 C:\Users\mehdi\Desktop\FireFox-Thief-master\History\obj\Debug\History.pdb
+E:\Project C#\FireFox-Thief-master\History\bin\Debug\History.dll
+E:\Project C#\FireFox-Thief-master\History\bin\Debug\History.pdb
+E:\Project C#\FireFox-Thief-master\History\obj\Debug\History.csprojAssemblyReference.cache
+E:\Project C#\FireFox-Thief-master\History\obj\Debug\History.csproj.CoreCompileInputs.cache
+E:\Project C#\FireFox-Thief-master\History\obj\Debug\History.dll
+E:\Project C#\FireFox-Thief-master\History\obj\Debug\History.pdb
